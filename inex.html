@@ -1,0 +1,116 @@
+<!-- @format -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tic Tac Toe</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="tic-tac-toe-container">
+      <h1>Tic Tac Toe</h1>
+      <div id="board" class="board">
+        <div class="cell"><span class="cell-content"></span></div>
+        <div class="cell"><span class="cell-content"></span></div>
+        <div class="cell"><span class="cell-content"></span></div>
+        <div class="cell"><span class="cell-content"></span></div>
+        <div class="cell"><span class="cell-content"></span></div>
+        <div class="cell"><span class="cell-content"></span></div>
+        <div class="cell"><span class="cell-content"></span></div>
+        <div class="cell"><span class="cell-content"></span></div>
+        <div class="cell"><span class="cell-content"></span></div>
+      </div>
+      <div id="status" class="status">
+        <div data-status-message-text></div>
+        <button id="restartButton">Restart</button>
+      </div>
+    </div>
+
+    <script>
+      let currentPlayer = "X";
+      let board = ["", "", "", "", "", "", "", "", ""];
+      const status = document.getElementById("status");
+      const restartButton = document.getElementById("restartButton");
+      const statusMessageText = document.querySelector(
+        "[data-status-message-text]"
+      );
+
+      function makeMove(index) {
+        console.log("Clicked cell index:", index);
+        console.log("Current player:", currentPlayer);
+
+        if (board[index] === "" && !checkWinner()) {
+          board[index] = currentPlayer;
+          updateBoard();
+
+          if (checkWinner()) {
+            statusMessageText.textContent = `${currentPlayer} wins!`;
+            status.classList.add("show");
+          } else if (isBoardFull()) {
+            statusMessageText.textContent = "It's a tie!";
+            status.classList.add("show");
+          } else {
+            currentPlayer = currentPlayer === "X" ? "O" : "X";
+          }
+        }
+      }
+
+      function updateBoard() {
+        const cells = document.querySelectorAll(".cell");
+        cells.forEach((cell, index) => {
+          cell.textContent = board[index];
+        });
+      }
+
+      function isBoardFull() {
+        return !board.includes("");
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const cells = document.querySelectorAll(".cell");
+
+        cells.forEach((cell, index) => {
+          cell.addEventListener("click", () => makeMove(index));
+        });
+      });
+
+      function checkWinner() {
+        const winningCombinations = [
+          [0, 1, 2],
+          [3, 4, 5],
+          [6, 7, 8],
+          [0, 3, 6],
+          [1, 4, 7],
+          [2, 5, 8],
+          [0, 4, 8],
+          [2, 4, 6],
+        ];
+
+        for (const combination of winningCombinations) {
+          const [a, b, c] = combination;
+          console.log("Board:", board);
+
+          // Fix: Initialize winner variable
+          const winner = board[a];
+
+          if (winner !== "" && winner === board[b] && winner === board[c]) {
+            return true;
+          }
+        }
+        return false;
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const cells = document.querySelectorAll(".cell");
+
+        cells.forEach((cell) => {
+          cell.addEventListener("click", () => {
+            makeMove(Array.from(cells).indexOf(cell));
+            cell.classList.add("selected");
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

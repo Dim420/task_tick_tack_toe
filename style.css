@@ -1,0 +1,128 @@
+/** @format */
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+:root {
+  --cell-size: 100px;
+  --mark-size: calc(var(--cell-size) * 0.9);
+}
+
+body {
+  margin: 0;
+}
+
+h1 {
+  position: absolute;
+  top: 200px;
+}
+
+.tic-tac-toe-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.board {
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  justify-items: center;
+  align-items: center;
+  grid-template-columns: repeat(3, auto);
+}
+
+.cell {
+  width: var(--cell-size);
+  height: var(--cell-size);
+  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+}
+
+.cell:first-child,
+.cell:nth-child(2),
+.cell:nth-child(3) {
+  border-top: none;
+}
+
+.cell:nth-child(3n + 1) {
+  border-left: none;
+}
+
+.cell:nth-child(3n + 3) {
+  border-right: none;
+}
+
+.cell:last-child,
+.cell:nth-child(8),
+.cell:nth-child(7) {
+  border-bottom: none;
+}
+
+.cell.x::before,
+.cell.x::after,
+.cell.circle::before,
+.cell.circle::after {
+  background-color: black;
+  font-weight: bold; /* Προσθήκη έντονης γραφής */
+  font-family: sans-serif; /* Προσθήκη γραμματοσειράς sans-serif */
+  font-size: 15px; /* Προσθήκη μεγέθους γραμματοσειράς */
+}
+
+.cell.x::before,
+.cell.x::after {
+  content: "X";
+}
+
+.cell.circle::before,
+.cell.circle::after {
+  content: "O";
+}
+
+.cell.selected {
+  font-weight: bold;
+  font-size: 40px;
+}
+
+.status {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.9);
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 5rem;
+  flex-direction: column;
+}
+
+.status button {
+  font-size: 2rem;
+  background-color: white;
+  border: 1px solid black;
+  padding: 0.25em 0.5em;
+  cursor: pointer;
+}
+
+.status button:hover {
+  background-color: black;
+  color: white;
+  border-color: white;
+}
+
+.status.show {
+  display: flex;
+}

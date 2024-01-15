@@ -74,9 +74,9 @@ h1 {
 .cell.circle::before,
 .cell.circle::after {
   background-color: black;
-  font-weight: bold; /* Προσθήκη έντονης γραφής */
-  font-family: sans-serif; /* Προσθήκη γραμματοσειράς sans-serif */
-  font-size: 15px; /* Προσθήκη μεγέθους γραμματοσειράς */
+  font-weight: bold;
+  font-family: sans-serif;
+  font-size: 15px;
 }
 
 .cell.x::before,

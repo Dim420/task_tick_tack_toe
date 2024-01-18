@@ -15,33 +15,23 @@ body {
   margin: 0;
 }
 
-h1 {
-  position: absolute;
-  top: 200px;
-}
-
 .tic-tac-toe-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 150px;
 }
 
 .board {
-  width: 100vw;
-  height: 100vh;
   display: grid;
-  justify-content: center;
-  align-content: center;
-  justify-items: center;
-  align-items: center;
-  grid-template-columns: repeat(3, auto);
+  grid-template-columns: repeat(3, 128px);
+  grid-auto-rows: 128px;
 }
 
 .cell {
-  width: var(--cell-size);
-  height: var(--cell-size);
-  border: 1px solid black;
+  border-right: 4px solid;
+  border-bottom: 4px solid;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -49,14 +39,8 @@ h1 {
   cursor: pointer;
 }
 
-.cell:first-child,
-.cell:nth-child(2),
-.cell:nth-child(3) {
-  border-top: none;
-}
-
-.cell:nth-child(3n + 1) {
-  border-left: none;
+.cell-content:focus {
+  outline: none;
 }
 
 .cell:nth-child(3n + 3) {
@@ -69,29 +53,9 @@ h1 {
   border-bottom: none;
 }
 
-.cell.x::before,
-.cell.x::after,
-.cell.circle::before,
-.cell.circle::after {
-  background-color: black;
-  font-weight: bold;
-  font-family: sans-serif;
-  font-size: 15px;
-}
-
-.cell.x::before,
-.cell.x::after {
-  content: "X";
-}
-
-.cell.circle::before,
-.cell.circle::after {
-  content: "O";
-}
-
 .cell.selected {
   font-weight: bold;
-  font-size: 40px;
+  font-size: 80px;
 }
 
 .status {

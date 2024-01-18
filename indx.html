@@ -1,0 +1,34 @@
+<!-- @format -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // Βήμα 1: Ορισμός της συνάρτησης που χρησιμοποιεί callback
+      function readFileAsync(filename, callback) {
+        // Προσομοίωση ασύγχρονης λειτουργίας (π.χ., ανάγνωση αρχείου)
+        setTimeout(() => {
+          const content = `Περιεχόμενο του αρχείου ${filename}`;
+          // Καλούμε το callback με τα δεδομένα που ανάγνωσαμε
+          callback(null, content);
+        }, 2000); // Περίμενε 2 δευτερόλεπτα για να προσομοιώσουμε τον χρόνο ανάγνωσης
+      }
+
+      // Βήμα 2: Κλήση της συνάρτησης με χρήση callback
+      readFileAsync("example.txt", (error, data) => {
+        // Βήμα 3: Ελέγχος αν υπήρξε σφάλμα κατά την ανάγνωση
+        if (error) {
+          console.error("Σφάλμα κατά την ανάγνωση του αρχείου:", error);
+        } else {
+          // Βήμα 4: Εκτύπωση των δεδομένων που αναγνώστηκαν από το αρχείο
+          console.log("Επιτυχής ανάγνωση του αρχείου. Δεδομένα:", data);
+        }
+      });
+    </script>
+  </body>
+</html>

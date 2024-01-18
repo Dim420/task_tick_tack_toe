@@ -35,19 +35,26 @@
       const statusMessageText = document.querySelector(
         "[data-status-message-text]"
       );
+      const winningCombinations = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+        [0, 4, 8],
+        [2, 4, 6],
+      ];
 
       function makeMove(index) {
-        console.log("Clicked cell index:", index);
-        console.log("Current player:", currentPlayer);
-
-        if (board[index] === "" && !checkWinner()) {
+        if (board[index] === "" && !determineWinner()) {
           board[index] = currentPlayer;
           updateBoard();
 
-          if (checkWinner()) {
+          if (determineWinner()) {
             statusMessageText.textContent = `${currentPlayer} wins!`;
             status.classList.add("show");
-          } else if (isBoardFull()) {
+          } else if (isEveryCellFilled()) {
             statusMessageText.textContent = "It's a tie!";
             status.classList.add("show");
           } else {
@@ -63,53 +70,40 @@
         });
       }
 
-      function isBoardFull() {
-        return !board.includes("");
+      function isEveryCellFilled() {
+        return board.every((cell) => cell !== "");
       }
 
-      document.addEventListener("DOMContentLoaded", () => {
-        const cells = document.querySelectorAll(".cell");
-
-        cells.forEach((cell, index) => {
-          cell.addEventListener("click", () => makeMove(index));
-        });
-      });
-
-      function checkWinner() {
-        const winningCombinations = [
-          [0, 1, 2],
-          [3, 4, 5],
-          [6, 7, 8],
-          [0, 3, 6],
-          [1, 4, 7],
-          [2, 5, 8],
-          [0, 4, 8],
-          [2, 4, 6],
-        ];
-
-        for (const combination of winningCombinations) {
-          const [a, b, c] = combination;
-          console.log("Board:", board);
-
-          const winner = board[a];
-
-          if (winner !== "" && winner === board[b] && winner === board[c]) {
+      function determineWinner() {
+        for (let i = 0; i < winningCombinations.length; i++) {
+          const [a, b, c] = winningCombinations[i];
+          if (board[a] && board[a] === board[b] && board[a] === board[c]) {
             return true;
           }
         }
         return false;
       }
 
-      document.addEventListener("DOMContentLoaded", function () {
-        const cells = document.querySelectorAll(".cell");
+      document.addEventListener("DOMContentLoaded", initializeGame);
 
-        cells.forEach((cell) => {
+      function initializeGame() {
+        const cells = document.querySelectorAll(".cell");
+        cells.forEach((cell, index) => {
           cell.addEventListener("click", () => {
-            makeMove(Array.from(cells).indexOf(cell));
+            makeMove(index);
             cell.classList.add("selected");
           });
         });
-      });
+
+        restartButton.addEventListener("click", restartGame);
+      }
+
+      function restartGame() {
+        board = ["", "", "", "", "", "", "", "", ""];
+        status.classList.remove("show");
+        updateBoard();
+        currentPlayer = "X";
+      }
     </script>
   </body>
 </html>
